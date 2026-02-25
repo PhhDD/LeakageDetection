@@ -1,0 +1,13 @@
+# Environments
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Data
+data/
+
+# Notebooks/Weights
+model/*.pth
+.ipynb_checkpoints/
