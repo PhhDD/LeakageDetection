@@ -1,36 +1,36 @@
 # Gate Leakage Detection in Quantum-Dot Charge Stability Diagrams
 
-A computer vision project for detecting gate leakage in quantum-dot charge
+A computer vision model and script for quickly detecting gate leakage in quantum-dot charge
 stability diagrams using a fine-tuned ResNet18 classifier.
 
 ## Overview
 
 Gate leakage can make a quantum-dot device unsuitable for further
 measurements. Manually screening large numbers of charge stability diagrams
-is time-consuming, so this project investigates whether a CNN can
+is time-consuming, this project investigates whether a CNN can
 automatically identify measurements exhibiting gate leakage.
 
-The input to the model is a cropped grayscale charge stability diagram.
-The model predicts the probability that the measurement contains gate
-leakage.
+## Key Features
+- Fined-tuned ResNet18 image classifier
+- Command line Python script for automatic png files classification
+- Auto-generate working device label list as input for next experiment
 
-## Problem
+## Tech
+- **Python**
+- **PyTorch**
+- **torchvision**
+- Pandas
+- Matplotlib
+- uv
+- GitHub
 
-A charge stability diagram can be represented as a 2D current map:
+## Usage
+Modify the `load_crop` function in `preprocess.py` to your correct crop pixel location
 
-- **x-axis:** gate voltage
-- **y-axis:** source-drain voltage
-- **pixel intensity:** measured current
-
-The characteristic feature of gate leakage is a dark-current region that
-persists vertically through a substantial fraction of the diagram.
-
-The task is therefore formulated as binary image classification:
-
-| Label | Meaning |
-|---|---|
-| `0` | No gate leakage |
-| `1` | Gate leakage |
+Model is designed to run on a CPU, GPU not required for inference
+```bash
+uv run python -m leakagedetection.predict <data_folder> --device cpu --output-dir <output_path> --batch-size <batch_size>
+```
 
 ## Dataset
 
@@ -119,9 +119,6 @@ The original fine-tuned model achieved:
 | Recall | **0.917** |
 | F1 | **0.917** |
 
-The test set contained only 12 positive examples, so these metrics should be
-interpreted with that sample size in mind.
-
 ## Decision Threshold
 
 In the intended experimental workflow, false positives are particularly
@@ -139,3 +136,4 @@ The final threshold is:
 ```text
 P(leakage) >= 0.67  →  potential leakage
 P(leakage) <  0.67  →  keep
+```
