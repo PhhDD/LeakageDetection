@@ -1,0 +1,21 @@
+{
+  "architecture": "resnet18",
+  "pretrained": "ImageNet",
+  "trainable_layers": [
+    "layer4",
+    "fc"
+  ],
+  "input_mode": "grayscale_replicated_to_3_channels",
+  "input_size": [
+    224,
+    224
+  ],
+  "threshold": 0.67,
+  "augmentation": "vertical_flip",
+  "crop": {
+    "left": 170,
+    "top": 180,
+    "right": 860,
+    "bottom": 560
+  }
+}
